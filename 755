@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual Keyboard</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    height:100vh;
+}
+
+textarea{
+    width:80%;
+    max-width:700px;
+    height:120px;
+    font-size:18px;
+    padding:10px;
+    margin-bottom:20px;
+}
+
+.keyboard{
+    display:grid;
+    grid-template-columns:repeat(10,60px);
+    gap:8px;
+}
+
+.key{
+    background:#ffffff;
+    border:1px solid #999;
+    border-radius:8px;
+    padding:15px;
+    text-align:center;
+    cursor:pointer;
+    font-size:20px;
+    user-select:none;
+}
+
+.key:hover{
+    background:#007BFF;
+    color:white;
+}
+
+.space{
+    grid-column:span 5;
+}
+</style>
+</head>
+<body>
+
+<h2>Virtual Keyboard</h2>
+
+<textarea id="text" placeholder="Type here..."></textarea>
+
+<div class="keyboard" id="keyboard"></div>
+
+<script>
+const keys = [
+"1","2","3","4","5","6","7","8","9","0",
+"Q","W","E","R","T","Y","U","I","O","P",
+"A","S","D","F","G","H","J","K","L",
+"Z","X","C","V","B","N","M",
+"Space","Backspace","Enter"
+];
+
+const keyboard=document.getElementById("keyboard");
+const text=document.getElementById("text");
+
+keys.forEach(key=>{
+    const btn=document.createElement("div");
+    btn.classList.add("key");
+
+    if(key==="Space"){
+        btn.classList.add("space");
+    }
+
+    btn.innerText=key;
+
+    btn.onclick=()=>{
+        if(key==="Backspace"){
+            text.value=text.value.slice(0,-1);
+        }
+        else if(key==="Space"){
+            text.value+=" ";
+        }
+        else if(key==="Enter"){
+            text.value+="\n";
+        }
+        else{
+            text.value+=key;
+        }
+    };
+
+    keyboard.appendChild(btn);
+});
+</script>
+
+</body>
+</html>
